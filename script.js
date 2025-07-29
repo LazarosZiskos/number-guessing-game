@@ -1,10 +1,11 @@
 function game() {
   let randomNumber = Math.floor(Math.random() * 100 + 1);
   console.log(randomNumber);
-
   let playerGuess;
 
-  console.log(playerGuess);
+  alert(
+    "🤖 WELCOME, HUMAN! Try to guess the number I've locked in my quantum circuits. You have 10 chances... or face the consequences! 💣"
+  );
 
   for (let i = 10; i > 0; i--) {
     playerGuess = Number(
@@ -32,7 +33,7 @@ function game() {
 
   console.log("Out of attempts. Game over!");
   alert(
-    `Out of attempts. The correct number was ${randomNumber}. The EVIL AI has taken over the world and we are all DEAD! 💀`
+    `😈 MWAHAHA! You failed. The number was ${randomNumber}. Now the AI has claimed the planet! 💀🌍`
   );
 }
 
