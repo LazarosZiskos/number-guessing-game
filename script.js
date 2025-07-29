@@ -1,3 +1,38 @@
+function getRandomResponse(outcome) {
+  const highMessages = [
+    "Whoa, too high! 🚀",
+    "Not even close, aim lower! 👇",
+    "You're flying too close to the sun! 🔥",
+    "Lower! You're overshooting! 🎯",
+  ];
+  const lowMessages = [
+    "Too low! Dig up! 🪓",
+    "Try going higher! 🚁",
+    "That's a mouse-sized guess. 🐭",
+    "Not quite — reach for the stars! 🌟",
+  ];
+  const winMessages = [
+    "🎉 NAILED IT! You're a genius!",
+    "💥 Boom! You crushed it!",
+    "🏆 Winner! The world is saved!",
+    "🧠 Big brain time! Nice job!",
+  ];
+
+  let responses;
+
+  if (outcome === "high") {
+    responses = highMessages;
+  } else if (outcome === "low") {
+    responses = lowMessages;
+  } else if (outcome === "win") {
+    responses = winMessages;
+  }
+
+  // QUESTION ABOUT ELSE
+
+  return responses[Math.floor(Math.random() * responses.length)];
+}
+
 function game() {
   let randomNumber = Math.floor(Math.random() * 100 + 1);
   console.log(randomNumber);
@@ -19,15 +54,18 @@ function game() {
     }
 
     if (playerGuess === randomNumber) {
-      console.log("🎉 Congrats! You guessed it!");
-      alert("🎉 Congrats! You guessed it!");
+      const message = getRandomResponse("win");
+      console.log(message);
+      alert(message);
       return;
     } else if (playerGuess > randomNumber) {
-      console.log("Too high! Guess lower");
-      alert("Too high! Guess lower");
+      const message = getRandomResponse("high");
+      console.log(message);
+      alert(message);
     } else {
-      console.log("Too low! Guess higher");
-      alert("Too low! Guess Higher");
+      const message = getRandomResponse("low");
+      console.log(message);
+      alert(message);
     }
   }
 
