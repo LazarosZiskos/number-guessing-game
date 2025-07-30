@@ -1,34 +1,36 @@
-function getRandomResponse(outcome) {
-  const highMessages = [
-    "Whoa, too high! 🚀",
-    "Not even close, aim lower! 👇",
-    "You're flying too close to the sun! 🔥",
-    "Lower! You're overshooting! 🎯",
-  ];
-  const lowMessages = [
-    "Too low! Dig up! 🪓",
-    "Try going higher! 🚁",
-    "That's a mouse-sized guess. 🐭",
-    "Not quite — reach for the stars! 🌟",
-  ];
+function getRandomMessage(outcome) {
   const winMessages = [
-    "🎉 NAILED IT! You're a genius!",
-    "💥 Boom! You crushed it!",
-    "🏆 Winner! The world is saved!",
-    "🧠 Big brain time! Nice job!",
+    "Congrats! You won! The World is now saved!",
+    "Boom! You crushed it! The devil AI is now defeated!",
+    "WOAH! You big brained it and won! The World is now saved!",
+    "Winner! You are smarter than the AI!",
+  ];
+
+  const highMessages = [
+    "You are aiming to high! Fly lower!",
+    "Whoah, too high!",
+    "You almost reached the sun, care not to be burned!",
+    "Not even close! Go lower!",
+  ];
+
+  const lowMessages = [
+    "Too low, Go higher!",
+    "That's ground size guess! Go higher!",
+    "Not quite accurate! Aim higher!",
+    "Try going higher, maybe you'll win!",
   ];
 
   let responses;
 
-  if (outcome === "high") {
+  if (outcome === "win") {
+    responses = winMessages;
+  } else if (outcome === "high") {
     responses = highMessages;
   } else if (outcome === "low") {
     responses = lowMessages;
-  } else if (outcome === "win") {
-    responses = winMessages;
   }
 
-  // QUESTION ABOUT ELSE
+  /// WHY ELSE IS NOT WORKING?!?!?!
 
   return responses[Math.floor(Math.random() * responses.length)];
 }
@@ -38,9 +40,14 @@ function game() {
   console.log(randomNumber);
   let playerGuess;
 
-  alert(
+  const wantsToPlay = confirm(
     "🤖 WELCOME, HUMAN! Try to guess the number I've locked in my quantum circuits. You have 10 chances... or face the consequences! 💣"
   );
+
+  if (!wantsToPlay) {
+    alert("You just accepted defeat and the everyone is dead.");
+    return;
+  }
 
   for (let i = 10; i > 0; i--) {
     playerGuess = Number(
@@ -54,16 +61,16 @@ function game() {
     }
 
     if (playerGuess === randomNumber) {
-      const message = getRandomResponse("win");
+      const message = getRandomMessage("win");
       console.log(message);
       alert(message);
       return;
     } else if (playerGuess > randomNumber) {
-      const message = getRandomResponse("high");
+      const message = getRandomMessage("high");
       console.log(message);
       alert(message);
     } else {
-      const message = getRandomResponse("low");
+      const message = getRandomMessage("low");
       console.log(message);
       alert(message);
     }
