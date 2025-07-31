@@ -80,12 +80,15 @@ function game() {
       console.log(
         `CHEAT CODE 69, YOU HAVE BROKEN THE AI CODE. The actual number was ${randomNumber}`
       );
-      return;
+      didWin = true;
+      break;
     }
 
     if (playerGuess === randomNumber) {
       const message = getRandomMessage("win");
+      alert(message);
       console.log(message);
+      didWin = true;
       break;
     } else if (playerGuess > randomNumber) {
       const message = getRandomMessage("high");
