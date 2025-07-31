@@ -76,9 +76,11 @@ function game() {
     }
 
     if (playerGuess === 69) {
-      alert(`🌶️ That number's too hot to handle. The AI short-circuited!`);
+      alert(
+        "🎉 🎉  You entered a MEME number that is older than the AI itself. The AI cannot deal with and and it will self-destruct!🎉 🎉 "
+      );
       console.log(
-        `CHEAT CODE 69, YOU HAVE BROKEN THE AI CODE. The actual number was ${randomNumber}`
+        `🌶️ That number's too hot to handle. The AI short-circuited! The actual number was ${randomNumber}`
       );
       didWin = true;
       break;
