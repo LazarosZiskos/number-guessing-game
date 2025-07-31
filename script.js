@@ -7,15 +7,15 @@ function getRandomMessage(outcome) {
   ];
 
   const highMessages = [
-    "You are aiming to high! Fly lower!",
+    "You are aiming too high! Fly lower!",
     "Whoah, too high!",
     "You almost reached the sun, care not to be burned!",
     "Not even close! Go lower!",
   ];
 
   const lowMessages = [
-    "Too low, Go higher!",
-    "That's ground size guess! Go higher!",
+    "Too low, go higher!",
+    "That's a ground-sized guess! Go higher!",
     "Not quite accurate! Aim higher!",
     "Try going higher, maybe you'll win!",
   ];
@@ -28,58 +28,81 @@ function getRandomMessage(outcome) {
     responses = highMessages;
   } else if (outcome === "low") {
     responses = lowMessages;
+  } else {
+    responses = [
+      "🤖 Unexpected outcome. Please reboot your brain and try again.",
+    ];
   }
-
-  /// WHY ELSE IS NOT WORKING?!?!?!
 
   return responses[Math.floor(Math.random() * responses.length)];
 }
 
 function game() {
-  let randomNumber = Math.floor(Math.random() * 100 + 1);
-  console.log(randomNumber);
-  let playerGuess;
+  const randomNumber = Math.floor(Math.random() * 100 + 1);
 
   const wantsToPlay = confirm(
     "🤖 WELCOME, HUMAN! Try to guess the number I've locked in my quantum circuits. You have 10 chances... or face the consequences! 💣"
   );
 
   if (!wantsToPlay) {
-    alert("You just accepted defeat and the everyone is dead.");
+    alert("You just accepted defeat... and everyone is dead. ☠️");
     return;
   }
 
   for (let i = 10; i > 0; i--) {
-    playerGuess = Number(
-      prompt(`Enter a number between 0 and 100.  Number of attempts left: ${i}`)
+    const input = prompt(
+      `Enter a number between 1 and 100. Attempts left: ${i}`
     );
 
-    if (playerGuess < 1 || playerGuess > 100 || isNaN(playerGuess)) {
-      alert("Don't be cheecky, follow the instructions!");
+    if (input === null) {
+      alert("🚪 You chose to walk away... The AI remains undefeated. ❌");
+      return;
+    }
+
+    const playerGuess = Number(input);
+
+    if (
+      isNaN(playerGuess) ||
+      !Number.isInteger(playerGuess) ||
+      playerGuess < 1 ||
+      playerGuess > 100
+    ) {
+      alert(
+        "Don't try to steal! Only whole numbers between 1 and 100 are allowed! ❌"
+      );
+      console.log("❌ Invalid input: must be an integer between 1 and 100");
       i++;
       continue;
+    }
+
+    if (playerGuess === 69) {
+      alert(`🌶️ That number's too hot to handle. The AI short-circuited!`);
+      console.log(
+        `CHEAT CODE 69, YOU HAVE BROKEN THE AI CODE. The actual number was ${randomNumber}`
+      );
+      return;
     }
 
     if (playerGuess === randomNumber) {
       const message = getRandomMessage("win");
       console.log(message);
-      alert(message);
-      return;
+      break;
     } else if (playerGuess > randomNumber) {
       const message = getRandomMessage("high");
       console.log(message);
-      alert(message);
     } else {
       const message = getRandomMessage("low");
       console.log(message);
-      alert(message);
     }
   }
 
-  console.log("Out of attempts. Game over!");
-  alert(
-    `😈 MWAHAHA! You failed. The number was ${randomNumber}. Now the AI has claimed the planet! 💀🌍`
-  );
+  const playAgain = confirm("🔁 Do you want to play again?");
+  if (playAgain) {
+    game();
+  } else {
+    alert("👋 Thanks for playing. The AI will be waiting...");
+    console.log("👋 Thanks for playing. The AI will be waiting...");
+  }
 }
 
 game();
