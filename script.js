@@ -39,6 +39,7 @@ function getRandomMessage(outcome) {
 
 function game() {
   const randomNumber = Math.floor(Math.random() * 100 + 1);
+  const didWin = false;
 
   const wantsToPlay = confirm(
     "🤖 WELCOME, HUMAN! Try to guess the number I've locked in my quantum circuits. You have 10 chances... or face the consequences! 💣"
@@ -82,12 +83,12 @@ function game() {
       console.log(
         `🌶️ That number's too hot to handle. The AI short-circuited! The actual number was ${randomNumber}`
       );
-      didWin = true;
       break;
     }
 
     if (playerGuess === randomNumber) {
       const message = getRandomMessage("win");
+      didWin = true;
       alert(message);
       console.log(message);
       didWin = true;
@@ -99,6 +100,10 @@ function game() {
       const message = getRandomMessage("low");
       console.log(message);
     }
+  }
+
+  if (!didWin) {
+    alert("You Lost! The world is destroyed and everyone is dead!")
   }
 
   const playAgain = confirm("🔁 Do you want to play again?");
