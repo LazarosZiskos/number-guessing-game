@@ -89,7 +89,6 @@ function game() {
 
     if (playerGuess === randomNumber) {
       const message = getRandomMessage("win");
-      didWin = true;
       alert(message);
       console.log(message);
       didWin = true;
@@ -101,10 +100,6 @@ function game() {
       const message = getRandomMessage("low");
       console.log(message);
     }
-  }
-
-  if (!didWin) {
-    alert("You Lost! The world is destroyed and everyone is dead!");
   }
 
   const playAgain = confirm("🔁 Do you want to play again?");
