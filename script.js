@@ -68,7 +68,7 @@ function game() {
       playerGuess > 100
     ) {
       alert(
-        "Don't try to steal! Only whole numbers between 1 and 100 are allowed! ❌"
+        "Don't try to cheat! Only whole numbers between 1 and 100 are allowed! ❌"
       );
       console.log("❌ Invalid input: must be an integer between 1 and 100");
       i++;
