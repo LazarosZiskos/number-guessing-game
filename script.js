@@ -39,7 +39,8 @@ function getRandomMessage(outcome) {
 
 function game() {
   const randomNumber = Math.floor(Math.random() * 100 + 1);
-  const didWin = false;
+  let didWin = false;
+  console.log(randomNumber);
 
   const wantsToPlay = confirm(
     "🤖 WELCOME, HUMAN! Try to guess the number I've locked in my quantum circuits. You have 10 chances... or face the consequences! 💣"
@@ -103,7 +104,7 @@ function game() {
   }
 
   if (!didWin) {
-    alert("You Lost! The world is destroyed and everyone is dead!")
+    alert("You Lost! The world is destroyed and everyone is dead!");
   }
 
   const playAgain = confirm("🔁 Do you want to play again?");
