@@ -22,25 +22,61 @@ function getRandomMessage(outcome) {
 
   let responses;
 
-  if (outcome === "win") {
-    responses = winMessages;
-  } else if (outcome === "high") {
-    responses = highMessages;
-  } else if (outcome === "low") {
-    responses = lowMessages;
-  } else {
-    responses = [
-      "🤖 Unexpected outcome. Please reboot your brain and try again.",
-    ];
+  switch (outcome) {
+    case "win":
+      responses = winMessages;
+      break;
+    case "high":
+      responses = highMessages;
+      break;
+    case "low":
+      responses = lowMessages;
+      break;
+    default:
+      responses = [
+        "🤖 Unexpected outcome. Please reboot your brain and try again.",
+      ];
   }
 
   return responses[Math.floor(Math.random() * responses.length)];
 }
 
+function getValidatedInput(attemptsLeft) {
+  const input = prompt(
+    `Enter a number between 1 and 100. Attempts left: ${attemptsLeft}`
+  );
+
+  if (input === null) {
+    return { type: "cancel" };
+  }
+
+  const playerGuess = Number(input);
+
+  if (
+    isNaN(playerGuess) ||
+    !Number.isInteger(playerGuess) ||
+    playerGuess < 1 ||
+    playerGuess > 100
+  ) {
+    alert(
+      "Don't try to cheat! Only whole numbers between 1 and 100 are allowed! ❌"
+    );
+    console.log("❌ Invalid input: must be an integer between 1 and 100");
+    return { type: "invalid" };
+  }
+
+  return { type: "valid", value: playerGuess };
+}
+
 function game() {
+  alert(
+    "🖥️ To fully experience this game, please open your browser's **Developer Console**.\n\n" +
+      "💡 Shortcuts to open the Console:\n" +
+      "• Windows/Linux: Ctrl + Shift + J\n" +
+      "• macOS: Cmd + Option + J"
+  );
+
   const randomNumber = Math.floor(Math.random() * 100 + 1);
-  let didWin = false;
-  console.log(randomNumber);
 
   const wantsToPlay = confirm(
     "🤖 WELCOME, HUMAN! Try to guess the number I've locked in my quantum circuits. You have 10 chances... or face the consequences! 💣"
@@ -52,34 +88,23 @@ function game() {
   }
 
   for (let i = 10; i > 0; i--) {
-    const input = prompt(
-      `Enter a number between 1 and 100. Attempts left: ${i}`
-    );
+    const result = getValidatedInput(i);
 
-    if (input === null) {
+    if (result.type === "cancel") {
       alert("🚪 You chose to walk away... The AI remains undefeated. ❌");
       return;
     }
 
-    const playerGuess = Number(input);
-
-    if (
-      isNaN(playerGuess) ||
-      !Number.isInteger(playerGuess) ||
-      playerGuess < 1 ||
-      playerGuess > 100
-    ) {
-      alert(
-        "Don't try to cheat! Only whole numbers between 1 and 100 are allowed! ❌"
-      );
-      console.log("❌ Invalid input: must be an integer between 1 and 100");
-      i++;
+    if (result.type === "invalid") {
+      i++; // Invalid input doesn’t count as a try
       continue;
     }
 
-    if (playerGuess === 69) {
+    const guess = result.value;
+
+    if (guess === 69) {
       alert(
-        "🎉 🎉  You entered a MEME number that is older than the AI itself. The AI cannot deal with and and it will self-destruct!🎉 🎉 "
+        "🎉 🎉  You entered a MEME number that is older than the AI itself. The AI cannot deal with it and will self-destruct! 🎉 🎉"
       );
       console.log(
         `🌶️ That number's too hot to handle. The AI short-circuited! The actual number was ${randomNumber}`
@@ -87,13 +112,12 @@ function game() {
       break;
     }
 
-    if (playerGuess === randomNumber) {
+    if (guess === randomNumber) {
       const message = getRandomMessage("win");
       alert(message);
       console.log(message);
-      didWin = true;
       break;
-    } else if (playerGuess > randomNumber) {
+    } else if (guess > randomNumber) {
       const message = getRandomMessage("high");
       console.log(message);
     } else {
